@@ -9,7 +9,7 @@ An online multiplayer party game where players compete by generating AI images i
 ### 1.2 Key Technologies
 
 - **Frontend Framework**: Next.js 14 (App Router)
-- **UI Components**: shadcn/ui + Tailwind CSS
+- **UI Components**: 8bitcn/ui + Tailwind CSS
 - **Backend**: Convex (reactive database, functions, file storage)
 - **Authentication**: Clerk (integrated with Next.js middleware)
 - **AI Generation**: OpenAI Images API (DALL-E 3)
@@ -147,7 +147,7 @@ ai-image-party-game/
 │   │   ├── stats-cards.tsx
 │   │   ├── recent-games.tsx
 │   │   └── quick-actions.tsx
-│   └── ui/                             # shadcn/ui components
+│   └── ui/                             # 8bitcn/ui components
 │       ├── button.tsx
 │       ├── card.tsx
 │       └── ...
@@ -248,7 +248,7 @@ sequenceDiagram
 - Next.js project setup with TypeScript and Tailwind ✅ (done)
 - Convex backend initialization and connection ✅ (done)  
 - Clerk authentication fully integrated ✅ (done)
-- **NEW**: Complete shadcn/ui component system setup
+- **NEW**: Complete 8bitcn/ui component system setup
 - **NEW**: Core game UI components (room lobby, game interface, player cards)
 - **NEW**: Navigation and layout components
 - **NEW**: Design system with colors, typography, spacing
@@ -289,7 +289,7 @@ describe('Foundation & UI', () => {
   });
   
   test('component library works correctly', async () => {
-    // Test key shadcn/ui components
+    // Test key 8bitcn/ui components
     // Verify design system consistency
   });
 });
@@ -994,14 +994,16 @@ npm install -D @types/node
 # Initialize Convex
 npx convex dev
 
-# Initialize shadcn/ui
-npx shadcn-ui@latest init
+# Initialize 8bitcn/ui (uses Tailwind v4)
+npm install @tailwindcss/cli@next tailwindcss@next @tailwindcss/vite@next
 
-# Add shadcn/ui components
-npx shadcn-ui@latest add button card avatar badge
-npx shadcn-ui@latest add dialog input label select
-npx shadcn-ui@latest add toast separator skeleton
-npx shadcn-ui@latest add dropdown-menu tabs
+# Add 8bitcn/ui components
+npx shadcn@canary add https://8bitcn.com/r/8bit-button.json
+npx shadcn@canary add https://8bitcn.com/r/8bit-card.json
+npx shadcn@canary add https://8bitcn.com/r/8bit-avatar.json
+npx shadcn@canary add https://8bitcn.com/r/8bit-dialog.json
+npx shadcn@canary add https://8bitcn.com/r/8bit-input.json
+npx shadcn@canary add https://8bitcn.com/r/8bit-label.json
 ```
 
 ### 12.2 Environment Variables
@@ -1055,7 +1057,7 @@ module.exports = nextConfig;
 ```
 
 ```typescript
-// tailwind.config.ts
+// tailwind.config.ts (Tailwind v4 configuration for 8bitcn/ui)
 import type { Config } from "tailwindcss";
 
 const config: Config = {

@@ -10,7 +10,7 @@ This is "Visionairy" - an AI-powered multiplayer party game built with Next.js a
 - **Frontend**: Next.js 15 with App Router, React 19, TypeScript
 - **Backend**: Convex (reactive database, real-time functions, file storage)  
 - **Authentication**: Clerk with Next.js middleware
-- **UI**: Tailwind CSS + shadcn/ui components
+- **UI**: Tailwind CSS + 8bitcn/ui components
 - **AI**: OpenAI DALL-E 3 API for image generation
 - **Deployment**: Vercel (frontend) + Convex Cloud (backend)
 
@@ -63,7 +63,7 @@ components/
 ├── marketing/           # Landing page components
 ├── game/               # Game UI components
 ├── dashboard/          # User dashboard components
-└── ui/                 # shadcn/ui components
+└── ui/                 # 8bitcn/ui components
 ```
 
 ### Key Implementation Rules
