@@ -235,33 +235,43 @@ sequenceDiagram
     C-->>P: Broadcast new round
 ```
 
-## 6. Feature Implementation Roadmap (Vertical Slices)
+## 6. Feature Implementation Roadmap (UI-First Vertical Slices)
 
-### Feature 0: Foundation & Authentication (Prerequisites)
+> **Philosophy Change**: This roadmap prioritizes building complete, polished UI components early to provide immediate visual progress and better user testing. Each feature includes both functionality AND polished user experience from day one.
 
-**Definition of Done**: User can sign up, sign in, and see a basic dashboard
+### Feature 0: Foundation & Core UI System (Prerequisites)
+
+**Definition of Done**: Complete UI foundation with visual game components working with mock data
 
 **Implementation**:
 
-- Next.js project setup with TypeScript and Tailwind
-- Convex backend initialization and connection
-- Clerk authentication fully integrated
-- Basic dashboard page (even if empty)
-- Middleware protecting routes
+- Next.js project setup with TypeScript and Tailwind ✅ (done)
+- Convex backend initialization and connection ✅ (done)  
+- Clerk authentication fully integrated ✅ (done)
+- **NEW**: Complete shadcn/ui component system setup
+- **NEW**: Core game UI components (room lobby, game interface, player cards)
+- **NEW**: Navigation and layout components
+- **NEW**: Design system with colors, typography, spacing
+- **NEW**: All key user flows demonstrated with mock data
 - Database schema for users table only
 - Deploy to Vercel + Convex (establish CI/CD early)
 
 **Acceptance Criteria**:
 
-- ✅ New user can sign up with email or OAuth
+- ✅ New user can sign up with email or OAuth  
 - ✅ User lands on dashboard after authentication
 - ✅ Protected routes redirect to sign-in
 - ✅ User data synced to Convex database
+- **NEW**: ✅ Complete UI component library available
+- **NEW**: ✅ Room lobby interface with mock players  
+- **NEW**: ✅ Game interface with mock prompts and images
+- **NEW**: ✅ Responsive design on all screen sizes
+- **NEW**: ✅ Visual feedback and loading states
 
 **Test Cases**:
 
 ```typescript
-describe('Authentication', () => {
+describe('Foundation & UI', () => {
   test('redirects unauthenticated users to sign-in', async () => {
     // Navigate to protected route
     // Verify redirect to /sign-in
@@ -272,27 +282,33 @@ describe('Authentication', () => {
     // Verify user record created in Convex
   });
   
-  test('allows authenticated access to dashboard', async () => {
-    // Sign in
-    // Navigate to dashboard
-    // Verify dashboard loads
+  test('renders complete game UI with mock data', async () => {
+    // Load game interface
+    // Verify all components render correctly
+    // Verify responsive design
+  });
+  
+  test('component library works correctly', async () => {
+    // Test key shadcn/ui components
+    // Verify design system consistency
   });
 });
 ```
 
-### Feature 1: Room Management System
+### Feature 1: Room Management & Real-time Integration
 
-**Definition of Done**: Users can create, join, and share rooms
+**Definition of Done**: Users can create, join, and share rooms with live UI updates
 
 **Implementation**:
 
-- Room creation with unique 6-character codes
+- **Wire existing UI to Convex**: Connect room lobby components to real backend
+- Room creation with unique 6-character codes  
 - Room joining via code
-- Room lobby page showing connected players
+- **Real-time player presence**: Live updates in lobby interface
 - Shareable room links with dynamic OG images
-- Real-time player presence in lobby
 - Database: rooms, players, presence tables
 - Fixed room settings (8 players, 30s timer, 10 rounds)
+- **Polish UI interactions**: Loading states, error handling, animations
 
 **Acceptance Criteria**:
 
@@ -337,34 +353,37 @@ describe('Room Management', () => {
 });
 ```
 
-### Feature 2: Game Flow Without AI
+### Feature 2: Complete Game Flow with Polished UI
 
-**Definition of Done**: Complete game loop works with placeholder images
+**Definition of Done**: Full game experience with placeholder images and refined interface
 
 **Implementation**:
 
+- **Connect game UI to backend**: Wire existing game components to Convex
 - Start game from lobby (host only)
 - Round progression state machine
-- Card Czar rotation system
-- Timer system for each phase
-- Prompt submission interface
-- Placeholder colored boxes instead of images
-- Voting mechanism
-- Score tracking and round winners
-- Game over screen with final scores
-- Database: rounds, prompts, questionCards tables (seed with 50 cards)
+- Card Czar rotation system  
+- **Server-side timers**: Convex scheduled functions for phase transitions
+- **Enhanced prompt submission**: Polished input with validation and character count
+- **Improved placeholder system**: Attractive colored placeholders with player info
+- **Refined voting interface**: Clear voting UI with player names and prompts
+- Score tracking and animated score updates
+- **Polished game over screen**: Detailed results with winner celebration
+- Database: rounds, prompts, questionCards tables (seed with 100+ diverse cards)
 
 **Acceptance Criteria**:
 
 - ✅ Host can start game with 3+ players
-- ✅ Each round has prompting → viewing → voting phases
+- ✅ Each round has prompting → viewing → voting phases  
 - ✅ Card Czar rotates each round
-- ✅ Timer enforces phase transitions
-- ✅ Players can submit prompts
-- ✅ Colored placeholders appear for each prompt
-- ✅ Card Czar can vote for winner
-- ✅ Scores update after each round
-- ✅ Game ends after set rounds with winner display
+- ✅ Server-side timers enforce phase transitions automatically
+- ✅ Players can submit prompts with real-time validation
+- ✅ Attractive placeholders appear with player info and prompt text
+- ✅ Card Czar can vote with clear interface showing all options
+- ✅ Scores update with smooth animations after each round
+- ✅ Game ends with detailed results screen and winner celebration
+- **NEW**: ✅ All interactions feel responsive and polished
+- **NEW**: ✅ Error states handled gracefully with user feedback
 
 **Test Cases**:
 
@@ -921,11 +940,13 @@ export const getForRound = query({
 
 - Don't use localStorage (not available in all environments)
 - Don't duplicate server state in React state
-- Don't forget to handle loading states
-- Don't skip error boundaries
-- Don't forget mobile responsiveness
+- **Don't ship features without loading states and error handling**
+- **Don't defer mobile responsiveness - build mobile-first**
+- Don't skip error boundaries for production resilience
 - Don't use client-side timers for game logic (use Convex scheduled functions)
 - Don't store sensitive data in client state
+- **Don't build "functional but ugly" - polish as you go**
+- **Don't create UI components without considering all states (loading, error, empty, success)**
 
 ### When Stuck
 
@@ -938,10 +959,11 @@ export const getForRound = query({
 
 ### Implementation Priority
 
-- Functionality over aesthetics initially
-- Get data flow working before adding animations
-- Use placeholder data where needed
-- Add polish in Feature 6, not before
+- **UI Foundation First**: Build complete component library and design system early
+- **Visual feedback throughout**: Every feature includes polished loading/error states
+- **Data flow with polish**: Don't separate functionality from good UX
+- **Progressive enhancement**: Start with great-looking mockups, then connect to real data
+- **Mobile-first approach**: Design responsive from day one, not as an afterthought
 
 ## 12. Development Setup & Commands
 
